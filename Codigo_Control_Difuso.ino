@@ -49,12 +49,12 @@ float Fuzzy(float E, float Ena, float Enb, float Enc, float End)
 {
   float P;
   if(E<Ena || E>End)
-    { En=0;}
+    { P=0;}
     else
   if(E>Enb && E<Enc)
-    { En=1;}
+    { P=1;}
     else
   if(E<=Enb || E>=Enc)
-    {En=(E-Ena)/(Enb-Ena);}
+    {P=(E-Ena)/(Enb-Ena);}
   return P;
 }
