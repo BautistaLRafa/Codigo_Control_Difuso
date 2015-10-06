@@ -18,7 +18,8 @@ void ISR_Interrupcion(){
  vol = sensor * (5.0 / 1023.0);
  Serial.println(vol);
  float ref = 2.63;
- // ref = Serial.read();
+ //if (Serial.available()>0){
+ // ref = Serial.read();}
  Error=ref-vol;
   if(Error<=4.7 && Error>=2){ 
      Ea=2; Eb=3.5; Ec=4; Ed=4.7;
