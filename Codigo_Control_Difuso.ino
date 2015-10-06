@@ -17,33 +17,34 @@ void ISR_Interrupcion(){
  sensor = analogRead(A0);
  vol = sensor * (5.0 / 1023.0);
  Serial.println(vol);
- float ref= 2.63;
+ float ref = 2.63;
+ // ref = Serial.read();
  Error=ref-vol;
-  if(Error<4.7 && Error>2){ 
+  if(Error<=4.7 && Error>=2){ 
      Ea=2; Eb=3.5; Ec=4; Ed=4.7;
      F[0] = Fuzzy(Error, Ea, Eb, Ec, Ed);}
      else{
      F[0]=0;
      }
-  if(Error<3 && Error>0){
+  if(Error<=3 && Error>=0){
      Ea=0; Eb=1; Ec=2; Ed=3;
      F[1] = Fuzzy(Error, Ea, Eb, Ec, Ed);}
      else{
      F[1]=0;
      }
-  if(Error<0.5 && Error>-0.5){
+  if(Error<=0.5 && Error>=-0.5){
      Ea=-0.5; Eb=0; Ec=0; Ed=0.5;
      F[2] = Fuzzy(Error, Ea, Eb, Ec, Ed);}
      else{
      F[2]=0;
      }
-  if(Error<0 && Error>-3){
+  if(Error<=0 && Error>=-3){
      Ea=-3; Eb=-2; Ec=-1; Ed=0;
      F[3] = Fuzzy(Error, Ea, Eb, Ec, Ed);}
      else{
      F[3]=0;
      }
-  if(Error<-2 && Error>-4.7){
+  if(Error<=-2 && Error>=-4.7){
      Ea=-4.7; Eb=-4; Ec=-3.5; Ed=-2;
      F[4] = Fuzzy(Error, Ea, Eb, Ec, Ed);}
      else{
