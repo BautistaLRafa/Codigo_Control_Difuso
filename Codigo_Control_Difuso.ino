@@ -204,6 +204,22 @@ for (int i=0; i<5; i++){
      if(MaxOmp<Omp[i]){
         MaxOmp=Omp[i];}
 } 
+float SumP=0, Sum=0, Salida;
+for (int i=0; i<101; i++){
+    if(i<=4.7 && i>=2){           
+     Ena=2; Enb=3.5; Enc=4; End=4.7;
+     if(i<=Ena || i>=End)
+     { Salida=0;}
+     else
+     if(i>=Enb && i<=Enc)
+     { Salida=MaxOmp;}
+     else
+     if(i<Enb || i>Enc)
+     {Salida=(i-Ena)/(Enb-Ena);}
+     else{
+     Salida=0;}
+     }
+}
 }
 //----------------Fuzzificacion--------------------
 //float Fuzzy(float E, float Ena, float Enb, float Enc, float End)
