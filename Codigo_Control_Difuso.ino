@@ -1,5 +1,7 @@
 #include <TimerOne.h>
-float Ena, Enb, Enc, End, Emp, Ep, Ez, En, Emn, vol, Error;
+float Ena, Enb, Enc, End, Emp, Ep, Ez, En, Emn, vol, Error, Eprima;
+float Epmp, Epp, Epz, Epn, Epmn;
+float MaxOmn=0, MaxOn=0, MaxOz=0, MaxOp=0, MaxOmp=0;
 int sensor;
 
 void setup(void)
@@ -86,6 +88,122 @@ void ISR_Interrupcion(){
      else{
      Emn=0;}
      }
+//-------------------------------------------------
+if(Eprima<=4.7 && Eprima>=2){           // Falta definir conjuntos para E'(Error Prima)
+     Ena=2; Enb=3.5; Enc=4; End=4.7;
+     if(Eprima<=Ena || Eprima>=End)
+     { Epmp=0;}
+     else
+     if(Eprima>=Enb && Eprima<=Enc)
+     { Epmp=1;}
+     else
+     if(Eprima<Enb || Eprima>Enc)
+     {Epmp=(Eprima-Ena)/(Enb-Ena);}
+     else{
+     Epmp=0;}
+     }
+//---------------------Reglas-Difusas---------------
+float Omn[5], On[6], Oz[3], Op[6], Omp[5];
+if(Emn<Epmn){
+  Omn[0]=Emn;}
+  else {Omn[0]=Epmn;}
+if(Emn<Epn){
+  Omn[1]=Emn;}
+  else {Omn[1]=Epn;}
+if(Emn<Epz){
+  Omn[2]=Emn;}
+  else {Omn[2]=Epz;}
+if(Emn<Epp){
+  Omn[3]=Emn;}
+  else {Omn[3]=Epp;}
+if(Emn<Epmp){
+  Omn[4]=Emn;}
+  else {Omn[4]=Epmp;}
+MaxOmn=Omn[0];
+for (int i=0; i<5; i++){
+     if(MaxOmn<Omn[i]){
+        MaxOmn=Omn[i];}
+}
+if(En<Epmn){
+  On[0]=En;}
+  else {On[0]=Epmn;}
+if(En<Epn){
+  On[1]=En;}
+  else {On[1]=Epn;}
+if(En<Epz){
+  On[2]=En;}
+  else {On[2]=Epz;}
+if(En<Epp){
+  On[3]=En;}
+  else {On[3]=Epp;}
+if(En<Epmp){
+  On[4]=En;}
+  else {On[4]=Epmp;}
+if(Ez<Epmp){
+  On[5]=Ez;}
+  else {On[5]=Epmp;}
+MaxOn=On[0];
+for (int i=0; i<6; i++){
+     if(MaxOn<On[i]){
+        MaxOn=On[i];}
+}
+if(Ez<Epn){
+  Oz[0]=Ez;}
+  else {Oz[0]=Epn;}
+if(Ez<Epz){
+  Oz[1]=Ez;}
+  else {Oz[1]=Epz;}
+if(Ez<Epp){
+  Oz[2]=Ez;}
+  else {Oz[2]=Epp;}
+MaxOz=Oz[0];
+for (int i=0; i<3; i++){
+     if(MaxOz<Oz[i]){
+        MaxOz=Oz[i];}
+}
+if(Ep<Epmn){
+  Op[0]=Ep;}
+  else {Op[0]=Epmn;}
+if(Ep<Epn){
+  Op[1]=Ep;}
+  else {Op[1]=Epn;}
+if(Ep<Epz){
+  Op[2]=Ep;}
+  else {Op[2]=Epz;}
+if(Ep<Epp){
+  Op[3]=Ep;}
+  else {Op[3]=Epp;}
+if(Ep<Epmp){
+  Op[4]=Ep;}
+  else {Op[4]=Epmp;}
+if(Ez<Epmn){
+  Op[5]=Ez;}
+  else {Op[5]=Epmn;}
+MaxOp=Op[0];
+for (int i=0; i<6; i++){
+     if(MaxOp<Op[i]){
+        MaxOp=Op[i];}
+}
+if(Emp<Epmn){
+  Omp[0]=Emp;}
+  else {Omp[0]=Epmn;}
+if(Emp<Epn){
+  Omp[1]=Emp;}
+  else {Omp[1]=Epn;}
+if(Emp<Epz){
+  Omp[2]=Emp;}
+  else {Omp[2]=Epz;}
+if(Emp<Epp){
+  Omp[3]=Emp;}
+  else {Omp[3]=Epp;}
+if(Emp<Epmp){
+  Omp[4]=Emp;}
+  else {Omp[4]=Epmp;}
+MaxOmp=Omp[0];
+for (int i=0; i<5; i++){
+     if(MaxOmp<Omp[i]){
+        MaxOmp=Omp[i];}
+} 
 }
 //----------------Fuzzificacion--------------------
 //float Fuzzy(float E, float Ena, float Enb, float Enc, float End)
