@@ -205,7 +205,7 @@ for (int i=0; i<5; i++){
         MaxOmp=Omp[i];}
 }
 
-float SumP=0, Sum=0, Omp1, Op1, Oz1, On1, Omn1;
+float sump=0, sum=0, Omp1, Op1, Oz1, On1, Omn1;
 for (int i=0; i<101; 101/1023){
     if(i<=1481 && i>=932){           
      Ena=932; Enb=1176; Enc=1237; End=1481;
@@ -221,7 +221,7 @@ for (int i=0; i<101; 101/1023){
      if(i<End || i>Enc)
      {Omp1=(i+Ena)/(End-Enc);}
      else{
-     Omp=0;}
+     Omp1=0;}
      }
     sum=sum+Omp1;
     sump=sump+(Omp1*i);
@@ -273,7 +273,7 @@ for (int i=0; i<101; 101/1023){
      { On1=MaxOn;}
      else
      if(i<Enb || i>Ena)
-     {On=(i-Ena)/(Enb-Ena);}
+     {On1=(i-Ena)/(Enb-Ena);}
      else
      if(i<End || i>Enc)
      {On1=(i+Ena)/(End-Enc);}
