@@ -221,26 +221,98 @@ MaxOmp=Omp[0];
 for (int i=0; i<5; i++){
      if(MaxOmp<Omp[i]){
         MaxOmp=Omp[i];}
-} 
-float SumP=0, Sum=0, Salida;
-for (int i=0; i<101; i++){
-    if(i<=4.7 && i>=2){           
-     Ena=2; Enb=3.5; Enc=4; End=4.7;
+}
+
+float SumP=0, Sum=0, Omp, Op, Oz, On, Omn;
+for (int i=0; i<101; 101/1023){
+    if(i<=1481 && i>=932){           
+     Ena=932; Enb=1176; Enc=1237; End=1481;
      if(i<=Ena || i>=End)
-     { Salida=0;}
+     { Omp=0;}
      else
      if(i>=Enb && i<=Enc)
-     { Salida=MaxOmp;}
+     { Omp=MaxOmp;}
      else
+<<<<<<< HEAD
      if(i<Enb || i>Ena)
      {Salida=(i-Ena)/(Enb-Ena);}
      else
      if(Error<End || Error>Enc)
      {Salida=(Error+Ena)/(End-Enc);}
+=======
+     if(i<Enb || i>Enc)
+     {Omp=(i-Ena)/(Enb-Ena);}
+>>>>>>> origin/master
      else{
-     Salida=0;}
+     Omp=0;}
      }
-}
+    sum=sum+Omp;
+    sump=sump+(Omp*i);
+    
+     if(i<=1110 && i>=623){           
+     Ena=623; Enb=888; Enc=888; End=1110;
+     if(i<=Ena || i>=End)
+     { Op=0;}
+     else
+     if(i>=Enb && i<=Enc)
+     { Op=MaxOp;}
+     else
+     if(i<Enb || i>Enc)
+     {Op=(i-Ena)/(Enb-Ena);}
+     else{
+     Op=0;}
+     }
+    sum=sum+Op;
+    sump=sump+(Op*i);
+     
+     if(i<=830 && i>=278){           
+     Ena=278; Enb=578; Enc=578; End=830;
+     if(i<=Ena || i>=End)
+     { Oz=0;}
+     else
+     if(i>=Enb && i<=Enc)
+     { Oz=MaxOz;}
+     else
+     if(i<Enb || i>Enc)
+     {Oz=(i-Ena)/(Enb-Ena);}
+     else{
+     Oz=0;}
+     }
+    sum=sum+Oz;
+    sump=sump+(Oz*i);
+     
+     if(i<=478 && i>=16){           
+     Ena=16; Enb=275; Enc=275; End=478;
+     if(i<=Ena || i>=End)
+     { On=0;}
+     else
+     if(i>=Enb && i<=Enc)
+     { On=MaxOn;}
+     else
+     if(i<Enb || i>Enc)
+     {On=(i-Ena)/(Enb-Ena);}
+     else{
+     On=0;}
+     }
+    sum=sum+On;
+    sump=sump+(On*i);
+     
+     if(i<=187 && i>=-291){           
+     Ena=-291; Enb=0; Enc=45; End=187;
+     if(i<=Ena || i>=End)
+     { Omn=0;}
+     else
+     if(i>=Enb && i<=Enc)
+     { Omn=MaxOmn;}
+     else
+     if(i<Enb || i>Enc)
+     {Omn=(i-Ena)/(Enb-Ena);}
+     else{
+     Omn=0;}
+     }
+    sum=sum+Omn;
+    sump=sump+(Omn*i);
+ }
 }
 //----------------Fuzzificacion--------------------
 //float Fuzzy(float E, float Ena, float Enb, float Enc, float End)
