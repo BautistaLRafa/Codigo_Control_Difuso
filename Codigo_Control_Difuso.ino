@@ -233,16 +233,11 @@ for (int i=0; i<101; 101/1023){
      if(i>=Enb && i<=Enc)
      { Omp=MaxOmp;}
      else
-<<<<<<< HEAD
      if(i<Enb || i>Ena)
-     {Salida=(i-Ena)/(Enb-Ena);}
-     else
-     if(Error<End || Error>Enc)
-     {Salida=(Error+Ena)/(End-Enc);}
-=======
-     if(i<Enb || i>Enc)
      {Omp=(i-Ena)/(Enb-Ena);}
->>>>>>> origin/master
+     else
+     if(i<End || i>Enc)
+     {Omp=(i+Ena)/(End-Enc);}
      else{
      Omp=0;}
      }
@@ -259,6 +254,9 @@ for (int i=0; i<101; 101/1023){
      else
      if(i<Enb || i>Enc)
      {Op=(i-Ena)/(Enb-Ena);}
+     else
+     if(i<End || i>Enc)
+     {Op=(i+Ena)/(End-Enc);}
      else{
      Op=0;}
      }
@@ -275,6 +273,9 @@ for (int i=0; i<101; 101/1023){
      else
      if(i<Enb || i>Enc)
      {Oz=(i-Ena)/(Enb-Ena);}
+     else
+     if(i<End || i>Enc)
+     {Oz=(i+Ena)/(End-Enc);}
      else{
      Oz=0;}
      }
@@ -291,6 +292,9 @@ for (int i=0; i<101; 101/1023){
      else
      if(i<Enb || i>Enc)
      {On=(i-Ena)/(Enb-Ena);}
+     else
+     if(i<End || i>Enc)
+     {On=(i+Ena)/(End-Enc);}
      else{
      On=0;}
      }
@@ -307,6 +311,9 @@ for (int i=0; i<101; 101/1023){
      else
      if(i<Enb || i>Enc)
      {Omn=(i-Ena)/(Enb-Ena);}
+     else
+     if(i<End || i>Enc)
+     {Omn=(i+Ena)/(End-Enc);}
      else{
      Omn=0;}
      }
