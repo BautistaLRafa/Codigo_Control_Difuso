@@ -31,8 +31,11 @@ void ISR_Interrupcion(){
      if(Error>=Enb && Error<=Enc)
      { Emp=1;}
      else
-     if(Error<Enb || Error>Enc)
+     if(Error<Enb || Error>Ena)
      {Emp=(Error-Ena)/(Enb-Ena);}
+     else
+     if(Error<End || Error>Enc)
+     {Emp=(Error+Ena)/(End-Enc);}
      else{
      Emp=0;}
      }
@@ -44,8 +47,11 @@ void ISR_Interrupcion(){
      if(Error>=Enb && Error<=Enc)
      { Ep=1;}
      else
-     if(Error<Enb || Error>Enc)
+     if(Error<Enb || Error>Ena)
      {Ep=(Error-Ena)/(Enb-Ena);}
+     else
+     if(Error<End || Error>Enc)
+     {Ep=(Error+Ena)/(End-Enc);}
      else{
      Ep=0;}
      }
@@ -57,8 +63,11 @@ void ISR_Interrupcion(){
      if(Error>=Enb && Error<=Enc)
      { Ez=1;}
      else
-     if(Error<Enb || Error>Enc)
+     if(Error<Enb || Error>Ena)
      {Ez=(Error-Ena)/(Enb-Ena);}
+     else
+     if(Error<End || Error>Enc)
+     {Ez=(Error+Ena)/(End-Enc);}
      else{
      Ez=0;}
      }
@@ -70,8 +79,11 @@ void ISR_Interrupcion(){
      if(Error>=Enb && Error<=Enc)
      { En=1;}
      else
-     if(Error<Enb || Error>Enc)
+     if(Error<Enb || Error>Ena)
      {En=(Error-Ena)/(Enb-Ena);}
+     else
+     if(Error<End || Error>Enc)
+     {En=(Error+Ena)/(End-Enc);}
      else{
      En=0;}
      }
@@ -83,8 +95,11 @@ void ISR_Interrupcion(){
      if(Error>=Enb && Error<=Enc)
      { Emn=1;}
      else
-     if(Error<Enb || Error>Enc)
+     if(Error<Enb || Error>Ena)
      {Emn=(Error-Ena)/(Enb-Ena);}
+     else
+     if(Error<End || Error>Enc)
+     {Emn=(Error+Ena)/(End-Enc);}
      else{
      Emn=0;}
      }
@@ -97,8 +112,11 @@ if(Eprima<=4.7 && Eprima>=2){           // Falta definir conjuntos para E'(Error
      if(Eprima>=Enb && Eprima<=Enc)
      { Epmp=1;}
      else
-     if(Eprima<Enb || Eprima>Enc)
+     if(Eprima<Enb || Eprima>Ena)
      {Epmp=(Eprima-Ena)/(Enb-Ena);}
+     else
+     if(Error<End || Error>Enc)
+     {Epmp=(Error+Ena)/(End-Enc);}
      else{
      Epmp=0;}
      }
@@ -214,8 +232,11 @@ for (int i=0; i<101; i++){
      if(i>=Enb && i<=Enc)
      { Salida=MaxOmp;}
      else
-     if(i<Enb || i>Enc)
+     if(i<Enb || i>Ena)
      {Salida=(i-Ena)/(Enb-Ena);}
+     else
+     if(Error<End || Error>Enc)
+     {Salida=(Error+Ena)/(End-Enc);}
      else{
      Salida=0;}
      }
