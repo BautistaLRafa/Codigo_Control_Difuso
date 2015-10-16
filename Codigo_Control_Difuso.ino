@@ -31,8 +31,11 @@ void ISR_Interrupcion(){
      if(Error>=Enb && Error<=Enc)
      { Emp=1;}
      else
-     if(Error<Enb || Error>Enc)
+     if(Error<Enb || Error>Ena)
      {Emp=(Error-Ena)/(Enb-Ena);}
+     else
+     if(Error<End || Error>Enc)
+     {Emp=(Error+Ena)/(End-Enc);}
      else{
      Emp=0;}
      }
@@ -44,8 +47,11 @@ void ISR_Interrupcion(){
      if(Error>=Enb && Error<=Enc)
      { Ep=1;}
      else
-     if(Error<Enb || Error>Enc)
+     if(Error<Enb || Error>Ena)
      {Ep=(Error-Ena)/(Enb-Ena);}
+     else
+     if(Error<End || Error>Enc)
+     {Ep=(Error+Ena)/(End-Enc);}
      else{
      Ep=0;}
      }
@@ -57,8 +63,11 @@ void ISR_Interrupcion(){
      if(Error>=Enb && Error<=Enc)
      { Ez=1;}
      else
-     if(Error<Enb || Error>Enc)
+     if(Error<Enb || Error>Ena)
      {Ez=(Error-Ena)/(Enb-Ena);}
+     else
+     if(Error<End || Error>Enc)
+     {Ez=(Error+Ena)/(End-Enc);}
      else{
      Ez=0;}
      }
@@ -70,8 +79,11 @@ void ISR_Interrupcion(){
      if(Error>=Enb && Error<=Enc)
      { En=1;}
      else
-     if(Error<Enb || Error>Enc)
+     if(Error<Enb || Error>Ena)
      {En=(Error-Ena)/(Enb-Ena);}
+     else
+     if(Error<End || Error>Enc)
+     {En=(Error+Ena)/(End-Enc);}
      else{
      En=0;}
      }
@@ -85,6 +97,9 @@ void ISR_Interrupcion(){
      else
      if(Error<Enb || Error>Enc)
      {Emn=(Error-Ena)/(Enb-Ena);}
+     else
+     if(Error<End || Error>Enc)
+     {Emn=(Error+Ena)/(End-Enc);}
      else{
      Emn=0;}
      }
