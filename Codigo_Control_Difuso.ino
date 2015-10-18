@@ -7,24 +7,31 @@ int sensor;
 void setup(void)
    {    
     pinMode(13,OUTPUT);
-    Timer1.initialize(10000);                 // Dispara cada 10 ms
-    Timer1.attachInterrupt(ISR_Interrupcion); // Activa la interrupcion y la asocia a ISR_Interrupcion
-    Serial.begin(38400);
+//  Timer1.initialize(10000);                 // Dispara cada 10 ms
+//    Timer1.attachInterrupt(ISR_Interrupcion); // Activa la interrupcion y la asocia a ISR_Interrupcion
+    Serial.begin(9600);
    }
 void loop() {
   
-} 
+
 //--------------Interrupcion Timer_1------------
-void ISR_Interrupcion(){
- sensor = analogRead(A0);
- vol = sensor * (5.0 / 1023.0);
- Serial.println(vol);
- float ref = 2.63;
- //if (Serial.available()>0){
+//void ISR_Interrupcion(){
+// sensor = analogRead(A0);   
+// vol = sensor * (5.0 / 1023.0);
+vol=1.5;
+Eprima=5;
+Serial.print("Eprima: ");
+ Serial.println(Eprima);
+ float ref = 4;
+ Serial.print("ref: ");
+ Serial.println(ref);
+  //if (Serial.available()>0){
  // ref = Serial.read();}
  Error=ref-vol;
-  if(Error<=4.7 && Error>=2){ 
-     Ena=2; Enb=3.5; Enc=4; End=4.7;
+ Serial.print(" error: ");
+ Serial.println(Error);
+  if(Error<=5.7 && Error>=2){Serial.println("Entro al 1 IF"); 
+     Ena=2; Enb=3.5; Enc=5; End=5.7;
      if(Error<=Ena || Error>=End)
      { Emp=0;}
      else
@@ -39,7 +46,7 @@ void ISR_Interrupcion(){
      else{
      Emp=0;}
      }
-  if(Error<=3 && Error>=0){
+  if(Error<=3 && Error>=0){Serial.println("Entro al 2 IF");
      Ena=0; Enb=1; Enc=2; End=3;
      if(Error<=Ena || Error>=End)
      { Ep=0;}
@@ -55,7 +62,7 @@ void ISR_Interrupcion(){
      else{
      Ep=0;}
      }
-  if(Error<=0.5 && Error>=-0.5){
+  if(Error<=0.5 && Error>=-0.5){Serial.println("Entro al 3 IF");
      Ena=-0.5; Enb=0; Enc=0; End=0.5;
      if(Error<=Ena || Error>=End)
      { Ez=0;}
@@ -71,7 +78,7 @@ void ISR_Interrupcion(){
      else{
      Ez=0;}
      }
-  if(Error<=0 && Error>=-3){
+  if(Error<=0 && Error>=-3){Serial.println("Entro al 4 IF");
      Ena=-3; Enb=-2; Enc=-1; End=0;
      if(Error<=Ena || Error>=End)
      { En=0;}
@@ -87,8 +94,8 @@ void ISR_Interrupcion(){
      else{
      En=0;}
      }
-  if(Error<=-2 && Error>=-4.7){
-     Ena=-4.7; Enb=-4; Enc=-3.5; End=-2;
+  if(Error<=-2 && Error>=-5.7){Serial.println("Entro al 5 IF");
+     Ena=-5.7; Enb=-4; Enc=-3.5; End=-2;
      if(Error<=Ena || Error>=End)
      { Emn=0;}
      else
@@ -103,125 +110,172 @@ void ISR_Interrupcion(){
      else{
      Emn=0;}
      }
-//-------------------------------------------------
-if(Eprima<=4.7 && Eprima>=2){           // Falta definir conjuntos para E'(Error Prima)
-     Ena=2; Enb=3.5; Enc=4; End=4.7;
+     Serial.print("Emp: ");
+     Serial.println(Emp);
+     Serial.print("En: ");
+     Serial.println(En);
+     Serial.print("Ez: ");
+     Serial.println(Ez);
+     Serial.print("En: ");
+     Serial.println(En);
+     Serial.print("Emn: ");
+     Serial.println(Emn);
+//------------------Fuzzificacion-Conjunto-Entrada-Ep-------------------------
+if(Eprima<=14.5 && Eprima>=5.5){ Serial.println("Entro al 1 IF2"); 
+     Ena=5.5; Enb=8; Enc=10.5; End=14.5;
      if(Eprima<=Ena || Eprima>=End)
-     { Epmp=0;}
+     { Emp=0;}
      else
      if(Eprima>=Enb && Eprima<=Enc)
      { Epmp=1;}
      else
-     if(Eprima<Enb || Eprima>Enc)
+     if(Eprima<Enb || Eprima>Ena)
      {Epmp=(Eprima-Ena)/(Enb-Ena);}
+     else
+     if(Eprima<End || Eprima>Enc)
+     {Emp=(Eprima+Ena)/(End-Enc);}
      else{
      Epmp=0;}
      }
+  if(Eprima<=7.9 && Eprima>=0){Serial.println("Entro al 2 IF2");
+     Ena=0; Enb=2; Enc=5.5; End=7.9;
+     if(Eprima<=Ena || Eprima>=End)
+     { Epp=0;}
+     else
+     if(Eprima>=Enb && Eprima<=Enc)
+     { Epp=1;}
+     else
+     if(Eprima<Enb || Eprima>Ena)
+     {Epp=(Eprima-Ena)/(Enb-Ena);}
+     else
+     if(Eprima<End || Eprima>Enc)
+     {Epp=(Eprima+Ena)/(End-Enc);}
+     else{
+     Epp=0;}
+     }
+  if(Eprima<=2 && Eprima>=-2){Serial.println("Entro al 3 IF2");
+     Ena=-2; Enb=0; Enc=0; End=2;
+     if(Eprima<=Ena || Eprima>=End)
+     { Epz=0;}
+     else
+     if(Eprima>=Enb && Eprima<=Enc)
+     { Epz=1;}
+     else
+     if(Eprima<Enb || Eprima>Ena)
+     {Epz=(Eprima-Ena)/(Enb-Ena);}
+     else
+     if(Eprima<End || Eprima>Enc)
+     {Epz=(Eprima+Ena)/(End-Enc);}
+     else{
+     Epz=0;}
+     }
+  if(Eprima<=0 && Eprima>=-7.9){Serial.println("Entro al 4 IF2");
+     Ena=-7.9; Enb=-5.5; Enc=-2; End=0;
+     if(Eprima<=Ena || Eprima>=End)
+     { Epn=0;}
+     else
+     if(Eprima>=Enb && Eprima<=Enc)
+     { Epn=1;}
+     else
+     if(Eprima<Enb || Eprima>Ena)
+     {Epn=(Eprima-Ena)/(Enb-Ena);}
+     else
+     if(Eprima<End || Eprima>Enc)
+     {Epn=(Eprima+Ena)/(End-Enc);}
+     else{
+     Epn=0;}
+     }
+  if(Eprima<=-5.5 && Eprima>=-14.5){Serial.println("Entro al 5 IF2");
+     Ena=-14.5; Enb=-10.5; Enc=-8; End=5.5;
+     if(Eprima<=Ena || Eprima>=End)
+     { Epmn=0;}
+     else
+     if(Eprima>=Enb && Eprima<=Enc)
+     { Epmn=1;}
+     else
+     if(Eprima<Enb || Eprima>Enc)
+     {Epmn=(Eprima-Ena)/(Enb-Ena);}
+     else
+     if(Eprima<End || Eprima>Enc)
+     {Epmn=(Eprima+Ena)/(End-Enc);}
+     else{
+     Epmn=0;}
+     }
+     Serial.print("Epmp: ");
+     Serial.println(Epmp);
+     Serial.print("Epp: ");
+     Serial.println(Epp);
+     Serial.print("Epz: ");
+     Serial.println(Epz);
+     Serial.print("Epn: ");
+     Serial.println(Epn);
+     Serial.print("Epmn: ");
+     Serial.println(Epmn);
 //---------------------Reglas-Difusas---------------
 float Omn[5], On[6], Oz[3], Op[6], Omp[5];
-if(Emn<Epmn){
-  Omn[0]=Emn;}
-  else {Omn[0]=Epmn;}
-if(Emn<Epn){
-  Omn[1]=Emn;}
-  else {Omn[1]=Epn;}
-if(Emn<Epz){
-  Omn[2]=Emn;}
-  else {Omn[2]=Epz;}
-if(Emn<Epp){
-  Omn[3]=Emn;}
-  else {Omn[3]=Epp;}
-if(Emn<Epmp){
-  Omn[4]=Emn;}
-  else {Omn[4]=Epmp;}
+Omn[0]=min(Emn,Epmn);
+Omn[1]=min(Emn,Epn);
+Omn[2]=min(Emn,Epz);
+Omn[3]=min(Emn,Epp);
+Omn[4]=min(Emn,Epmp);
 MaxOmn=Omn[0];
 for (int i=0; i<5; i++){
      if(MaxOmn<Omn[i]){
-        MaxOmn=Omn[i];}
+        MaxOmn=Omn[i];} //Selecciona el maximo Omn
 }
-if(En<Epmn){
-  On[0]=En;}
-  else {On[0]=Epmn;}
-if(En<Epn){
-  On[1]=En;}
-  else {On[1]=Epn;}
-if(En<Epz){
-  On[2]=En;}
-  else {On[2]=Epz;}
-if(En<Epp){
-  On[3]=En;}
-  else {On[3]=Epp;}
-if(En<Epmp){
-  On[4]=En;}
-  else {On[4]=Epmp;}
-if(Ez<Epmp){
-  On[5]=Ez;}
-  else {On[5]=Epmp;}
+On[0]=min(En,Epmn);
+On[1]=min(En,Epn);
+On[2]=min(En,Epz);
+On[3]=min(En,Epp);
+On[4]=min(En,Epmp);
+On[5]=min(Ez,Epmp);
 MaxOn=On[0];
 for (int i=0; i<6; i++){
      if(MaxOn<On[i]){
-        MaxOn=On[i];}
+        MaxOn=On[i];}   //Selecciona el maximo On
 }
-if(Ez<Epn){
-  Oz[0]=Ez;}
-  else {Oz[0]=Epn;}
-if(Ez<Epz){
-  Oz[1]=Ez;}
-  else {Oz[1]=Epz;}
-if(Ez<Epp){
-  Oz[2]=Ez;}
-  else {Oz[2]=Epp;}
+Oz[0]=min(Ez,Epn);
+Oz[1]=min(Ez,Epz);
+Oz[2]=min(Ez,Epp);
 MaxOz=Oz[0];
 for (int i=0; i<3; i++){
      if(MaxOz<Oz[i]){
-        MaxOz=Oz[i];}
+        MaxOz=Oz[i];}    //Selecciona el maximo Oz
 }
-if(Ep<Epmn){
-  Op[0]=Ep;}
-  else {Op[0]=Epmn;}
-if(Ep<Epn){
-  Op[1]=Ep;}
-  else {Op[1]=Epn;}
-if(Ep<Epz){
-  Op[2]=Ep;}
-  else {Op[2]=Epz;}
-if(Ep<Epp){
-  Op[3]=Ep;}
-  else {Op[3]=Epp;}
-if(Ep<Epmp){
-  Op[4]=Ep;}
-  else {Op[4]=Epmp;}
-if(Ez<Epmn){
-  Op[5]=Ez;}
-  else {Op[5]=Epmn;}
+Op[0]=min(Ep,Epmn);
+Op[1]=min(Ep,Epn);
+Op[2]=min(Ep,Epz);
+Op[3]=min(Ep,Epp);
+Op[4]=min(Ep,Epmp);
+Op[5]=min(Ez,Epmn);
 MaxOp=Op[0];
 for (int i=0; i<6; i++){
      if(MaxOp<Op[i]){
-        MaxOp=Op[i];}
+        MaxOp=Op[i];}     //Selecciona el maximo Op
 }
-if(Emp<Epmn){
-  Omp[0]=Emp;}
-  else {Omp[0]=Epmn;}
-if(Emp<Epn){
-  Omp[1]=Emp;}
-  else {Omp[1]=Epn;}
-if(Emp<Epz){
-  Omp[2]=Emp;}
-  else {Omp[2]=Epz;}
-if(Emp<Epp){
-  Omp[3]=Emp;}
-  else {Omp[3]=Epp;}
-if(Emp<Epmp){
-  Omp[4]=Emp;}
-  else {Omp[4]=Epmp;}
+Omp[0]=min(Emp,Epmn);
+Omp[1]=min(Emp,Epn);
+Omp[2]=min(Emp,Epz);
+Omp[3]=min(Emp,Epp);
+Omp[4]=min(Emp,Epmp);
 MaxOmp=Omp[0];
 for (int i=0; i<5; i++){
      if(MaxOmp<Omp[i]){
-        MaxOmp=Omp[i];}
+        MaxOmp=Omp[i];}  //Selecciona el maximo Omp
 }
-
+Serial.print("MaxOmn: ");
+Serial.println(MaxOmn);
+Serial.print("MaxOn: ");
+Serial.println(MaxOn);
+Serial.print("MaxOz: ");
+Serial.println(MaxOz);
+Serial.print("MaxOp: ");
+Serial.println(MaxOp);
+Serial.print("MaxOmp: ");
+Serial.println(MaxOmp);
 float sump=0, sum=0, Omp1, Op1, Oz1, On1, Omn1;
-for (int i=0; i<101; 101/1023){
+for (int i=0; i<1023; i=i+10){
+  Serial.println(i);
     if(i<=1481 && i>=932){           
      Ena=932; Enb=1176; Enc=1237; End=1481;
      if(i<=Ena || i>=End)
@@ -317,7 +371,26 @@ for (int i=0; i<101; 101/1023){
     sum=sum+Omn1;
     sump=sump+(Omn1*i);
  }
+//---------------------PWM----------------------
+float c, f, CU;
+c=sump/sum;
+f=255/1023;
+CU=c*f;
+Serial.print("Error");
+Serial.println(Error);
+Serial.print("Error Prima");
+Serial.println(Eprima);
+Serial.print("Suma Ponderada");
+Serial.println(sump);
+Serial.print("Suma");
+Serial.println(sum);
+Serial.print("PWM");
+Serial.println(c);
+
+//analogWrite(CU);
+
 }
+
 //----------------Fuzzificacion--------------------
 //float Fuzzy(float E, float Ena, float Enb, float Enc, float End)
 //{
