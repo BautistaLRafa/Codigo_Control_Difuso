@@ -16,8 +16,8 @@ void loop() {
 
 //--------------Interrupcion Timer_1------------
 //void ISR_Interrupcion(){
-// sensor = analogRead(A0);   
-// vol = sensor * (5.0 / 1023.0);
+// sensor = analogRead(A0);        //Toma los valores tegistrados por el sensor.
+// vol = sensor * (5.0 / 1023.0);  //ADC para una resolucion de 10bits
 vol=1.5;
 Eprima=5;
 Serial.print("Eprima: ");
@@ -27,10 +27,11 @@ Serial.print("Eprima: ");
  Serial.println(ref);
   //if (Serial.available()>0){
  // ref = Serial.read();}
- Error=ref-vol;
+ Error=ref-vol;                     //Determina el valor de Error(referencia-valor del sensor)
  Serial.print(" error: ");
  Serial.println(Error);
-  if(Error<=5.7 && Error>=2){Serial.println("Entro al 1 IF"); 
+ //-----------Fuzzificacion-Conjunto-de-Entrada-Error----------
+  if(Error<=5.7 && Error>=2){Serial.println("Entro al 1 IF"); //determina Error muy positivo(Emp)
      Ena=2; Enb=3.5; Enc=5; End=5.7;
      if(Error<=Ena || Error>=End)
      { Emp=0;}
@@ -46,7 +47,7 @@ Serial.print("Eprima: ");
      else{
      Emp=0;}
      }
-  if(Error<=3 && Error>=0){Serial.println("Entro al 2 IF");
+  if(Error<=3 && Error>=0){Serial.println("Entro al 2 IF");//determina Error positivo(Ep)
      Ena=0; Enb=1; Enc=2; End=3;
      if(Error<=Ena || Error>=End)
      { Ep=0;}
@@ -62,7 +63,7 @@ Serial.print("Eprima: ");
      else{
      Ep=0;}
      }
-  if(Error<=0.5 && Error>=-0.5){Serial.println("Entro al 3 IF");
+  if(Error<=0.5 && Error>=-0.5){Serial.println("Entro al 3 IF");//determina Error cero(Ez)
      Ena=-0.5; Enb=0; Enc=0; End=0.5;
      if(Error<=Ena || Error>=End)
      { Ez=0;}
@@ -78,7 +79,7 @@ Serial.print("Eprima: ");
      else{
      Ez=0;}
      }
-  if(Error<=0 && Error>=-3){Serial.println("Entro al 4 IF");
+  if(Error<=0 && Error>=-3){Serial.println("Entro al 4 IF");//determina Error negativo(En)
      Ena=-3; Enb=-2; Enc=-1; End=0;
      if(Error<=Ena || Error>=End)
      { En=0;}
@@ -94,7 +95,7 @@ Serial.print("Eprima: ");
      else{
      En=0;}
      }
-  if(Error<=-2 && Error>=-5.7){Serial.println("Entro al 5 IF");
+  if(Error<=-2 && Error>=-5.7){Serial.println("Entro al 5 IF");//determina Error muy negativo(Emn)
      Ena=-5.7; Enb=-4; Enc=-3.5; End=-2;
      if(Error<=Ena || Error>=End)
      { Emn=0;}
@@ -120,8 +121,8 @@ Serial.print("Eprima: ");
      Serial.println(En);
      Serial.print("Emn: ");
      Serial.println(Emn);
-//------------------Fuzzificacion-Conjunto-Entrada-Ep-------------------------
-if(Eprima<=14.5 && Eprima>=5.5){ Serial.println("Entro al 1 IF2"); 
+//------------------Fuzzificacion-Conjunto-de-Entrada-Error-Prima----------------
+if(Eprima<=14.5 && Eprima>=5.5){ Serial.println("Entro al 1 IF2"); //determina Error prima muy positivo(Emp)
      Ena=5.5; Enb=8; Enc=10.5; End=14.5;
      if(Eprima<=Ena || Eprima>=End)
      { Emp=0;}
@@ -137,7 +138,7 @@ if(Eprima<=14.5 && Eprima>=5.5){ Serial.println("Entro al 1 IF2");
      else{
      Epmp=0;}
      }
-  if(Eprima<=7.9 && Eprima>=0){Serial.println("Entro al 2 IF2");
+  if(Eprima<=7.9 && Eprima>=0){Serial.println("Entro al 2 IF2");//determina Error prima muy positivo(Emp)
      Ena=0; Enb=2; Enc=5.5; End=7.9;
      if(Eprima<=Ena || Eprima>=End)
      { Epp=0;}
@@ -153,7 +154,7 @@ if(Eprima<=14.5 && Eprima>=5.5){ Serial.println("Entro al 1 IF2");
      else{
      Epp=0;}
      }
-  if(Eprima<=2 && Eprima>=-2){Serial.println("Entro al 3 IF2");
+  if(Eprima<=2 && Eprima>=-2){Serial.println("Entro al 3 IF2");//determina Error prima muy positivo(Emp)
      Ena=-2; Enb=0; Enc=0; End=2;
      if(Eprima<=Ena || Eprima>=End)
      { Epz=0;}
@@ -169,7 +170,7 @@ if(Eprima<=14.5 && Eprima>=5.5){ Serial.println("Entro al 1 IF2");
      else{
      Epz=0;}
      }
-  if(Eprima<=0 && Eprima>=-7.9){Serial.println("Entro al 4 IF2");
+  if(Eprima<=0 && Eprima>=-7.9){Serial.println("Entro al 4 IF2");//determina Error prima muy positivo(Emp)
      Ena=-7.9; Enb=-5.5; Enc=-2; End=0;
      if(Eprima<=Ena || Eprima>=End)
      { Epn=0;}
@@ -185,7 +186,7 @@ if(Eprima<=14.5 && Eprima>=5.5){ Serial.println("Entro al 1 IF2");
      else{
      Epn=0;}
      }
-  if(Eprima<=-5.5 && Eprima>=-14.5){Serial.println("Entro al 5 IF2");
+  if(Eprima<=-5.5 && Eprima>=-14.5){Serial.println("Entro al 5 IF2");//determina Error prima muy positivo(Emp)
      Ena=-14.5; Enb=-10.5; Enc=-8; End=5.5;
      if(Eprima<=Ena || Eprima>=End)
      { Epmn=0;}
@@ -273,6 +274,7 @@ Serial.print("MaxOp: ");
 Serial.println(MaxOp);
 Serial.print("MaxOmp: ");
 Serial.println(MaxOmp);
+//------Fuzzificacion-e-Implicacion-de-Conjuntos-de-Salida-PWM--
 float sump=0, sum=0, Omp1, Op1, Oz1, On1, Omn1;
 for (int i=0; i<1023; i=i+10){
   Serial.println(i);
