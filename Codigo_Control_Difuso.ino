@@ -30,53 +30,53 @@ int sensor;
 #define End4 2.0
 
 #define Ena5 5.5
-#define Enb5 8
+#define Enb5 8.0
 #define Enc5 10.5
 #define End5 14.5
 
-#define Ena6 0
-#define Enb6 2
+#define Ena6 0.0
+#define Enb6 2.0
 #define Enc6 5.5
 #define End6 7.9
 
-#define Ena7 -2
-#define Enb7 0
-#define Enc7 0
-#define End7 2
+#define Ena7 -2.0
+#define Enb7 0.0
+#define Enc7 0.0
+#define End7 2.0
 #define Ena8 -7.9
 #define Enb8 -5.5
-#define Enc8 -2
-#define End8 0
+#define Enc8 -2.0
+#define End8 0.0
 
 #define Ena9 -14.5
 #define Enb9 -10.5
-#define Enc9 -8
+#define Enc9 -8.0
 #define End9 5.5
 
-#define Ena10 932
-#define Enb10 1176
-#define Enc10 1237
-#define End10 1481
+#define Ena10 932.0
+#define Enb10 1176.0
+#define Enc10 1237.0
+#define End10 1481.0
 
-#define Ena11 623
-#define Enb11 888
-#define Enc11 888
-#define End11 1110
+#define Ena11 623.0
+#define Enb11 888.0
+#define Enc11 888.0
+#define End11 1110.0
 
-#define Ena12 278
-#define Enb12 578
-#define Enc12 578
-#define End12 830
+#define Ena12 278.0
+#define Enb12 578.0
+#define Enc12 578.0
+#define End12 830.0
 
-#define Ena13 16
-#define Enb13 275
-#define Enc13 275
-#define End13 478
+#define Ena13 16.0
+#define Enb13 275.0
+#define Enc13 275.0
+#define End13 478.0
 
-#define Ena14 -291 
-#define Enb14 0
-#define Enc14 45
-#define End14 187
+#define Ena14 -291.0
+#define Enb14 0.0
+#define Enc14 45.0
+#define End14 187.0
 
 
 void setup(void)
@@ -94,42 +94,46 @@ void loop() {
 // sensor = analogRead(A0);        //Toma los valores tegistrados por el sensor.
 // vol = sensor * (5.0 / 1023.0);  //ADC para una resolucion de 10bits
 
-Serial.print("Eprima: ");
- Serial.println(Eprima);
- float ref = 4.0;
- Serial.print("ref: ");
- Serial.println(ref);
-  //if (Serial.available()>0){
- // ref = Serial.read();}
- Error=ref-vol;                     //Determina el valor de Error(referencia-valor del sensor)
- Serial.print(" error: ");
- Serial.println(Error);
+//float ref = 4.0;
+// Serial.print("ref: ");
+// Serial.println(ref);
+//if (Serial.available()>0){
+// ref = Serial.read();}
+// Error=ref-vol;                     //Determina el valor de Error(referencia-valor del sensor)
 
  Error=2.5;
  Eprima=5.0;
+ Serial.print(" Error: ");
+ Serial.println(Error);
+ Serial.print(" Error Prima: ");
+ Serial.println(Eprima);
  //-----------Fuzzificacion-Conjunto-de-Entrada-Error----------
-
-     if(Error<=Ena || Error>=End) { Emp=0;}
+// Ena 2.0 Enb 3.5 Enc 5.0 End 5.7
+if(Error<=Ena || Error>=End) { Emp=0;}
      else if(Error>=Enb && Error<=Enc) { Emp=1;}
      else if(Error<Enb) {Emp=(Error-Ena)/(Enb-Ena);}
      else {Emp=(End-Error)/(End-Enc);}
      
-     if(Error<=Ena1 || Error>=End1) { Emp=0;}
+//Ena1 0.0 Enb1 1.0 Enc1 2.0 End1 3.7     
+if(Error<=Ena1 || Error>=End1) { Emp=0;}
      else if(Error>=Enb1 && Error<=Enc1) { Emp=1;}
      else if(Error<Enb1) {Emp=(Error-Ena1)/(Enb1-Ena1);}
      else {Emp=(End1-Error)/(End1-Enc1);}
-  
-     if(Error<=Ena2 || Error>=End2) { Emp=0;}
+
+// Ena2 -0.5 Enb2 0.0 Enc2 0.0 End2 0.5
+if(Error<=Ena2 || Error>=End2) { Emp=0;}
      else if(Error>=Enb2 && Error<=Enc2) { Emp=1;}
      else if(Error<Enb2) {Emp=(Error-Ena2)/(Enb2-Ena2);}
      else {Emp=(End2-Error)/(End2-Enc2);}
-     
-     if(Error<=Ena3 || Error>=End3) { Emp=0;}
+
+// Ena3 -3.0 Enb3 -2.0 Enc3 -1.0 End3 0.0
+if(Error<=Ena3 || Error>=End3) { Emp=0;}
      else if(Error>=Enb3 && Error<=Enc3) { Emp=1;}
      else if(Error<Enb3) {Emp=(Error-Ena3)/(Enb3-Ena3);}
      else {Emp=(End3-Error)/(End3-Enc3);}
-     
-  if(Error<=Ena4 || Error>=End4) { Emp=0;}
+
+// Ena4 -5.7 Enb4 -4.0 Enc4 -3.5 End4 2.0
+if(Error<=Ena4 || Error>=End4) { Emp=0;}
      else if(Error>=Enb4 && Error<=Enc4) { Emp=1;}
      else if(Error<Enb4) {Emp=(Error-Ena4)/(Enb4-Ena4);}
      else {Emp=(End3-Error)/(End3-Enc3);}
@@ -146,12 +150,12 @@ Serial.print("Eprima: ");
      Serial.println(Emn);
 //------------------Fuzzificacion-Conjunto-de-Entrada-Error-Prima----------------
      
-      if(Error<=Ena5 || Error>=End5) { Epmp=0;}
+if(Error<=Ena5 || Error>=End5) { Epmp=0;}
      else if(Error>=Enb5 && Error<=Enc5) { Epmp=1;}
      else if(Error<Enb5) {Epmp=(Error-Ena5)/(Enb5-Ena5);}
      else {Epmp=(End5-Error)/(End5-Enc5);}
 
-      if(Error<=Ena6 || Error>=End6) { Epp=0;}
+if(Error<=Ena6 || Error>=End6) { Epp=0;}
      else if(Error>=Enb6 && Error<=Enc6) { Epp=1;}
      else if(Error<Enb6) {Epp=(Error-Ena6)/(Enb6-Ena6);}
      else {Epp=(End6-Error)/(End6-Enc6);}
@@ -195,7 +199,6 @@ for (int i=1; i<5; i++){
         Omn[0]=Omn[i];} //Selecciona el maximo Omn
 }
 MaxOmn=Omn[0];
-
 
 On[0]=min(En,Epmn);
 On[1]=min(En,Epn);
@@ -257,40 +260,37 @@ float sump=0, sum=0, PWM[5], MaxPWM=0;
 for (int i=0; i<1023; i=i+10){
   Serial.println(i);
   
-    if(Error<=Ena10 || Error>=End10) { PWM[0]=0;}
-     else if(Error>=Enb10 && Error<=Enc10) { PWM[0]=MaxOmp;}
-     else if(Error<Enb10) {PWM[0]=(Error-Ena10)/(Enb10-Ena10);}
-     else {PWM[0]=(End10-Error)/(End10-Enc10);}
+    if(i<=Ena10 || i>=End10) { PWM[0]=0;}
+     else if(i>=Enb10 && i<=Enc10) { PWM[0]=MaxOmp;}
+     else if(i<Enb10) {PWM[0]=(i-Ena10)/(Enb10-Ena10);}
+     else {PWM[0]=(End10-i)/(End10-Enc10);}
 
-     if(Error<=Ena11 || Error>=End11) { PWM[1]=0;}
-     else if(Error>=Enb11 && Error<=Enc11) { PWM[1]=MaxOp;}
-     else if(Error<Enb11) {PWM[1]=(Error-Ena11)/(Enb11-Ena11);}
-     else {PWM[1]=(End11-Error)/(End11-Enc11);}
+    if(i<=Ena11 || i>=End11) { PWM[1]=0;}
+     else if(i>=Enb11 && i<=Enc11) { PWM[1]=MaxOp;}
+     else if(i<Enb11) {PWM[1]=(i-Ena11)/(Enb11-Ena11);}
+     else {PWM[1]=(End11-i)/(End11-Enc11);}
      
-    if(Error<=Ena12 || Error>=End12) { PWM[2]=0;}
-     else if(Error>=Enb12 && Error<=Enc12) { PWM[2]=MaxOz;}
-     else if(Error<Enb12) {PWM[2]=(Error-Ena12)/(Enb12-Ena12);}
-     else {PWM[2]=(End12-Error)/(End12-Enc12);}
+    if(i<=Ena12 || i>=End12) { PWM[2]=0;}
+     else if(i>=Enb12 && i<=Enc12) { PWM[2]=MaxOz;}
+     else if(i<Enb12) {PWM[2]=(i-Ena12)/(Enb12-Ena12);}
+     else {PWM[2]=(End12-i)/(End12-Enc12);}
      
-   if(Error<=Ena13 || Error>=End13) { PWM[3]=0;}
-     else if(Error>=Enb13 && Error<=Enc13) { PWM[3]=MaxOn;}
-     else if(Error<Enb13) {PWM[3]=(Error-Ena13)/(Enb13-Ena13);}
-     else {PWM[3]=(End13-Error)/(End13-Enc13);}
+   if(i<=Ena13 || i>=End13) { PWM[3]=0;}
+     else if(i>=Enb13 && i<=Enc13) { PWM[3]=MaxOn;}
+     else if(i<Enb13) {PWM[3]=(i-Ena13)/(Enb13-Ena13);}
+     else {PWM[3]=(End13-i)/(End13-Enc13);}
      
-     if(Error<=Ena14 || Error>=End14) { PWM[4]=0;}
-     else if(Error>=Enb14 && Error<=Enc14) { PWM[4]=MaxOmn;}
-     else if(Error<Enb14) {PWM[4]=(Error-Ena14)/(Enb14-Ena14);}
-     else {PWM[4]=(End14-Error)/(End14-Enc14);}
+    if(Error<=Ena14 || Error>=End14) { PWM[4]=0;}
+     else if(i>=Enb14 && i<=Enc14) { PWM[4]=MaxOmn;}
+     else if(i<Enb14) {PWM[4]=(i-Ena14)/(Enb14-Ena14);}
+     else {PWM[4]=(End14-i)/(End14-Enc14);}
      
-     for (int i=1; i<5; i++){
-     if(PWM[0]<PWM[i]){
-        PWM[0]=PWM[i];} //Selecciona el maximo PWM
-}
+for (int i=1; i<5; i++)
+    {if(PWM[0]<PWM[i]){PWM[0]=PWM[i];}} //Selecciona el maximo PWM}
 MaxPWM=PWM[0];
-
-    sum=sum+MaxPWM;
-    sump=sump+(MaxPWM*i);
- }
+sum=sum+MaxPWM;
+sump=sump+(MaxPWM*i);
+}
 //---------------------PWM----------------------
 float c, f, CU;
 sum=sum/1023;
@@ -307,6 +307,8 @@ Serial.print("Suma");
 Serial.println(sum);
 Serial.print("PWM");
 Serial.println(c);
+Serial.print("PWM_2");
+Serial.println(CU);
 
 //analogWrite(CU);
 
